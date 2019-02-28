@@ -33,6 +33,6 @@ A Tutorial that shows you how to deploy a trained deep learning model to Android
   
 ## **Step 2. Put the .tflite model file to Android project folder**
 The .tflite file need to be put in the "assets" folder of the project as shown below:
-folder path: \app\src\main\assets
+
 ![alt text](/asset folder.png "Description goes here")
 
