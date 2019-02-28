@@ -1,6 +1,6 @@
 # Deploying a Keras Tensorflow Model to Android
 A Tutorial that shows you how to deploy a trained deep learning model to Android mobile app 
-![alt text](https://github.com/Yu-Hang/Deploying-a-Keras-Tensorflow-Model-to-Android/blob/master/asset_folder.png "Description goes here")
+![alt text](https://github.com/Yu-Hang/Deploying-a-Keras-Tensorflow-Model-to-Android/blob/master/steps.PNG "Description goes here")
 
 ## **Step 1. Convert Keras model(.h5) to a Tensorflow Lite FlatBuffer(.tflite)**
 
