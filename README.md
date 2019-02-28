@@ -34,5 +34,18 @@ A Tutorial that shows you how to deploy a trained deep learning model to Android
 ## **Step 2. Put the .tflite model file to Android project folder**
 The .tflite file need to be put in the "assets" folder of the project as shown below:
 
-![alt text](/asset folder.png "Description goes here")
+![alt text](https://github.com/Yu-Hang/Deploying-a-Keras-Tensorflow-Model-to-Android/blob/master/asset_folder.png "Description goes here")
+
+Path in the project: /app/src/main/assets
+
+## **Step 3. Add TensorFLow Lite library to your Android project**
+To build an Android App that uses TensorFlow Lite, the first thing you’ll need to do is add the tensorflow-lite library to your app. This can be done by adding the following line to your build.gradle file’s dependencies section:
+```
+	implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
+```  
+
+## **Step 4. Load and run model in Android**
+
+###### 1. load model file
+  [classifier = TFLiteImageClassifier.create(getAssets(), MODEL_FILE, LABEL_FILE, INPUT_SIZE);](https://github.com/tensorflow/tensorflow/blob/fdbaab6f506a1829cbadaf79482ffc95a7342b37/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/ClassifierActivity.java#L102)
 
