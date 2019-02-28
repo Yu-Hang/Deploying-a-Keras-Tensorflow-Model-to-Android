@@ -25,7 +25,7 @@ A Tutorial that shows you how to deploy a trained deep learning model to Android
     tflite_model = converter.convert()
     open("converted_model.tflite", "wb").write(tflite_model)
     ```
-    If you don't know the input/output nodes' names, do the following:
+    If you don't know the input/output nodes' names of the model, do the following:
     ```
       >>> import tensorflow as tf 
       >>> g = tf.GraphDef()
