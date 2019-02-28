@@ -31,3 +31,7 @@ A Tutorial that shows you how to deploy a trained deep learning model to Android
 
 *Note: The windows version of TensorFlow might not have the package you need. If so, you will have to perform this conversion in Linux environment. 
   
+## **Step 2. Put the .tflite model file to Android project folder**
+The .tflite file need to be put in the "assets" folder of the project as shown below:
+  folder path: \app\src\main\assets
+  
