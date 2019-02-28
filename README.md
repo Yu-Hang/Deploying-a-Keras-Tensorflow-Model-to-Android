@@ -45,7 +45,60 @@ To build an Android App that uses TensorFlow Lite, the first thing you’ll need
 ```  
 
 ## **Step 4. Load and run model in Android**
+In this final step, we write code in the Android project to load and run the model for inference.
+###### 1. load model file    
 
-###### 1. load model file
-  [classifier = TFLiteImageClassifier.create(getAssets(), MODEL_FILE, LABEL_FILE, INPUT_SIZE);](https://github.com/tensorflow/tensorflow/blob/fdbaab6f506a1829cbadaf79482ffc95a7342b37/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/ClassifierActivity.java#L102)
+[classifier = TFLiteImageClassifier.create(getAssets(), MODEL_FILE, LABEL_FILE, INPUT_SIZE);](https://github.com/tensorflow/tensorflow/blob/fdbaab6f506a1829cbadaf79482ffc95a7342b37/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/ClassifierActivity.java#L102)
+  
+  See the TFLiteImageClassifier.create() function [here](https://github.com/tensorflow/tensorflow/blob/f38eea2aec56f7cdbee11d354e5753a097943c94/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/TFLiteImageClassifier.java#L85)
+  
+###### 2. run model for inference
 
+*The input image need to be in Bitmap ARGB_8888 format for this.
+
+We fisrt need to put the Bitmap data into a ByteBuffer, which is the input data format to the inference function.
+```
+private int[] intValues;
+private ByteBuffer imgData = null;
+...
+...
+
+private void convertBitmapToByteBuffer(Bitmap bitmap) {
+    if (imgData == null) {
+      return;
+    }
+    imgData.rewind();
+    
+    bitmap.getPixels(intValues, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+    
+    // Convert the image to floating point.
+    int pixel = 0;
+    long startTime = SystemClock.uptimeMillis();
+    for (int i = 0; i < DIM_IMG_SIZE_X; ++i) {
+      for (int j = 0; j < DIM_IMG_SIZE_Y; ++j) {
+        final int val = intValues[pixel++];
+        imgData.put((byte) ((val >> 16) & 0xFF));	// R	# In Android Bitmap ARGB_8888, each pixel is stored on 4 bytes(32 bits).
+        imgData.put((byte) ((val >> 8) & 0xFF));  	// G	# Hence, each int val stores the ARGB values for one pixel.
+        imgData.put((byte) (val & 0xFF));         	// B	# '>>' and '& 0xFF' together gives the RGB values      
+      }
+    }
+    long endTime = SystemClock.uptimeMillis();
+    Log.d(TAG, "Timecost to put values into ByteBuffer: " + Long.toString(endTime - startTime));
+  }
+  ```
+
+Finally, we run inference. In order to reduce the runtime, multiple input images should be inferenced at once
+
+```
+int[] dims = new int[4];
+dims[0] = batchSize;		// number of images to be inferenced 
+dims[1] = DIM_IMG_SIZE;		// image height
+dims[2] = DIM_IMG_SIZE;		// image width
+dims[3] = DIM_PIXEL_SIZE;	// number of channels
+
+tfLite.resizeInput(0, dims);    // resize input tensor
+
+float[][] labelProb = new float[current_batchSize][2]; // output probabilities
+
+tfLite.run(imgData, labelProb); // run inference
+```
