@@ -87,7 +87,7 @@ private void convertBitmapToByteBuffer(Bitmap bitmap) {
   }
   ```
 
-Finally, we run inference. In order to reduce the runtime, multiple input images should be inferenced at once
+Finally, we run inference. In order to reduce the runtime, multiple input images should be inferenced at once.
 
 ```
 int[] dims = new int[4];
@@ -102,3 +102,12 @@ float[][] labelProb = new float[current_batchSize][2]; // output probabilities
 
 tfLite.run(imgData, labelProb); // run inference
 ```
+
+Check out the Google demo code [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/TFLiteImageClassifier.java#L126)
+
+
+## **Reference**
+1. TensorFlow Lite official site:  [https://www.tensorflow.org/lite/](https://www.tensorflow.org/lite/)
+2. Demo code from Google: [https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/TFLiteImageClassifier.java](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/TFLiteImageClassifier.java)
+3. Online tutorial on this topic: [https://medium.com/tensorflow/using-tensorflow-lite-on-android-9bbc9cb7d69d
+](https://medium.com/tensorflow/using-tensorflow-lite-on-android-9bbc9cb7d69d)
