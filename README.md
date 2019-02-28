@@ -1,6 +1,8 @@
 # Deploying a Keras Tensorflow Model to Android
 A Tutorial that shows you how to deploy a trained deep learning model to Android mobile app 
 
+**TensorFlow Lite is the official solution for running machine learning models on mobile and embedded devices. It enables on‑device machine learning inference with low latency and a small binary size on Android, iOS, and other operating systems.**
+
 ![alt text](https://github.com/Yu-Hang/Deploying-a-Keras-Tensorflow-Model-to-Android/blob/master/steps.PNG "Description goes here")
 
 ## **Step 1. Convert Keras model(.h5) to a Tensorflow Lite FlatBuffer(.tflite)**
