@@ -1,7 +1,7 @@
 # Deploying a Keras Tensorflow Model to Android
 A Tutorial that shows you how to deploy a trained deep learning model to Android mobile app 
 
-## **Convert Keras model(.h5) to a Tensorflow Lite FlatBuffer(.tflite)**
+## **Step 1. Convert Keras model(.h5) to a Tensorflow Lite FlatBuffer(.tflite)**
 
 - For TensorFlow **1.12.0**, follow the steps [here](https://www.tensorflow.org/lite/convert/python_api#exporting_a_tfkeras_file_) 
 
@@ -14,13 +14,20 @@ A Tutorial that shows you how to deploy a trained deep learning model to Android
     ```
     import tensorflow as tf
     graph_def_file = "/path/to/Downloads/mobilenet_v1_1.0_224/frozen_graph.pb"
-    input_arrays = ["input"]
-    output_arrays = ["MobilenetV1/Predictions/Softmax"]
+    input_arrays = ["input"]                                # input node name
+    output_arrays = ["MobilenetV1/Predictions/Softmax"]     # output node name
 
-    converter = tf.lite.TFLiteConverter.from_frozen_graph(graph_def_file, input_arrays, output_arrays)
+    converter = tf.contrib.lite.TocoConverter.from_frozen_graph(graph_def_file, input_arrays, output_arrays)
     tflite_model = converter.convert()
     open("converted_model.tflite", "wb").write(tflite_model)
     ```
+    If you don't know the input/output nodes' names, do the following:
+    ```
+      >>> import tensorflow as tf 
+      >>> g = tf.GraphDef()
+      >>> g.ParseFromString(open(“path/to/mymodel.pb”, “rb”).read())
+      >>> [n for n in g.node if n.name.find(“input”) != -1] # same for output or any other node you want to make sure is ok
+    ```  
 
 *Note: The windows version of TensorFlow might not have the package you need. If so, you will have to perform this conversion in Linux environment. 
   
