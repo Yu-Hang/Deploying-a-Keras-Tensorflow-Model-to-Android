@@ -1,5 +1,6 @@
 # Deploying a Keras Tensorflow Model to Android
 A Tutorial that shows you how to deploy a trained deep learning model to Android mobile app 
+
 ![alt text](https://github.com/Yu-Hang/Deploying-a-Keras-Tensorflow-Model-to-Android/blob/master/steps.PNG "Description goes here")
 
 ## **Step 1. Convert Keras model(.h5) to a Tensorflow Lite FlatBuffer(.tflite)**
@@ -104,7 +105,7 @@ float[][] labelProb = new float[current_batchSize][2]; // output probabilities
 tfLite.run(imgData, labelProb); // run inference
 ```
 
-Check out the Google demo code [here](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/TFLiteImageClassifier.java#L126)
+[Google demo code for inference](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/examples/android/app/src/main/java/org/tensorflow/demo/TFLiteImageClassifier.java#L126)
 
 
 ## **Reference**
